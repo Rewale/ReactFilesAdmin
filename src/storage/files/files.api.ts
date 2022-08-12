@@ -28,3 +28,12 @@ export function useProducts(){
 
   return {products, setProducts, error, loading}
 }
+
+export async function deleteFile(id: string){
+  try {
+    return await axios.delete<IFileInfo>(`http://127.0.0.1:8000/files/?file_id=${id}`,
+      {headers: {"Access-Control-Allow-Origin": "*"}})
+  } catch (e: any) {
+    return e as AxiosError
+  }
+}

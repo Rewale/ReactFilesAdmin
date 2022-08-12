@@ -3,9 +3,8 @@ import {FileCard} from "./components/FileCard";
 
 function App() {
 
-  const {loading, error, products} = useProducts()
-  console.log(loading)
-  console.log(products)
+  const {loading, error, products, setProducts} = useProducts()
+  const onDeleteHandler = (id: string) => setProducts(products.filter((f) => f.id !== id))
 
   return (
     <div className="App flex flex-col items-center">
@@ -14,8 +13,9 @@ function App() {
       {error && <p className="text-center">{error}</p> }
       <div className="container w-1/2">
         {products?.map(file => (
-          <FileCard model={file}/>
+          <FileCard model={file} onDeleteHandler={onDeleteHandler}/>
         ))}
+        {products.length === 0 && <p className="text-center font-bold text-xl">No elements</p> }
       </div>
     </div>
   );
